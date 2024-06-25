@@ -1,12 +1,12 @@
 require("dotenv").config();
 const http =  require("http");
 
-app.use(
-    cors({
-      origin: "http://localhost:5173",
-      credentials: true,
-    })
-  );
+// app.use(
+//     cors({
+//       origin: "http://localhost:5173",
+//       credentials: true,
+//     })
+//   );
   
 require("./config/dbConnect");
 const app = require("./app/app");

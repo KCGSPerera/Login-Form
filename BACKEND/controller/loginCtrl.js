@@ -1,5 +1,6 @@
 const Login = require("../model/Login");
 
+// register user
 exports.registerUser = async (req, res) => {
     const { firstname, 
             lastname, 
@@ -36,3 +37,89 @@ exports.registerUser = async (req, res) => {
         message: "User registered successfully...",
     }); 
 };
+
+// update user
+exports .updateUser = async (req,res) => {
+
+    const { firstname, lastname, email, password, age, phonenumber, address1, address2 } = req.body;
+
+    const emailFound = await Login.findOne({email});
+
+    if(emailFound){
+        res.status(404).json({message:"User already exists..."})
+    }
+
+    const user =  await Login.findByIdAndUpdate(req.params.id, {
+        firstname,
+        lastname,
+        email,
+        phonenumber,
+        address1,
+        address2,
+        age,
+        password
+
+    },
+    {
+        new: true,
+        // runValidators: true,
+    });
+    res.status(200).json({
+        data: user,
+        status: "success",
+        message: "User updated successfully",
+    });
+
+
+}
+
+// get one user
+exports.getUserCtrl = async (req, res) => {
+
+    const user = await Login.findById(req.params.id);
+
+    if(!user){
+        res.status(404).json({message: "The user not found..."})
+    }
+
+    res.status(200).json({
+        data: user,
+        status: "success",
+        message: "User fetched successfully",
+    })
+}
+
+// get all users
+exports.getUsersCtrl = async (req,res) => {
+
+    const users = await Login.find();
+
+    if(!users){
+        res.status(404).json({message: "No users found..."})
+    }
+
+    res.status(200).json({
+        data: users,
+        status: "success",
+        message: "All users fetched succesfully...",
+    });
+}
+
+// delete user 
+exports.deleteUser = async (req,res) => {
+
+    const user = await Login.findByIdAndDelete(req.params.id);
+
+    if(user){
+        res.status(200).json({
+            ststus: "Success",
+            message: "User deleted successfully",
+            data: user,
+        });
+       
+    } else{
+        res.status(404).json({
+            message: "Failed to delete the the user..."
+        })
+    }
+}
