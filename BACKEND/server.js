@@ -1,5 +1,13 @@
 require("dotenv").config();
 const http =  require("http");
+
+app.use(
+    cors({
+      origin: "http://localhost:3000",
+      credentials: true,
+    })
+  );
+  
 require("./config/dbConnect");
 const app = require("./app/app");
 
