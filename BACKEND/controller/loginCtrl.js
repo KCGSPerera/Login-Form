@@ -75,6 +75,11 @@ exports .updateUser = async (req,res) => {
 
 // get one user
 exports.getUserCtrl = async (req, res) => {
+    
+    try {
+        if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
+            return res.status(400).json({ message: "Invalid user ID" });
+        }
 
     const user = await Login.findById(req.params.id);
 
@@ -87,6 +92,9 @@ exports.getUserCtrl = async (req, res) => {
         status: "success",
         message: "User fetched successfully",
     })
+} catch(error){
+    res.status(400).json({ message: error.message });
+}
 }
 
 // get all users

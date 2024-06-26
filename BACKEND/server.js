@@ -1,15 +1,19 @@
 require("dotenv").config();
 const http =  require("http");
+const cors = require('cors');
+  
+require("./config/dbConnect");
+const app = require("./app/app");
+
+app.use(cors());
 
 // app.use(
 //     cors({
 //       origin: "http://localhost:5173",
-//       credentials: true,
+//     //   credentials: true,
 //     })
 //   );
-  
-require("./config/dbConnect");
-const app = require("./app/app");
+
 
 const PORT = process.env.PORT || 2021
 
