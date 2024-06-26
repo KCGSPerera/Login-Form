@@ -1,4 +1,5 @@
 const Login = require("../model/Login");
+const mongoose = require('mongoose');
 
 // register user
 exports.registerUser = async (req, res) => {
@@ -45,8 +46,8 @@ exports .updateUser = async (req,res) => {
 
     const emailFound = await Login.findOne({email});
 
-    if(emailFound){
-        res.status(404).json({message:"User already exists..."})
+    if(!emailFound){
+        res.status(404).json({message:"User not exists..."})
     }
 
     const user =  await Login.findByIdAndUpdate(req.params.id, {

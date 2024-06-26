@@ -15,7 +15,7 @@ export const getUser = async (id) => {
 };
 
 export const getUsers = async () => {
-  return axios.get(API_URL);
+  return axios.get(`${API_URL}`);
 };
 
 export const deleteUser = async (id) => {

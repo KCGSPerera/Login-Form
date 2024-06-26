@@ -2,6 +2,7 @@
   "name": "login-form",
   "private": true,
   "version": "0.0.0",
+  "proxy":"http://localhost:5173/api/v1/users",
   "type": "module",
   "scripts": {
     "dev": "vite",
